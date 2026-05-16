@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brew Cafe</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <nav class="navbar">
+      <h1 class="logo">☕ Brew Cafe</h1>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#offers">Offers</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="menu-btn" id="menuBtn">☰</div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h2>Fresh Coffee Everyday</h2>
+      <p>Modern Cafe Experience with Premium Taste</p>
+
+      <a href="#products" class="btn">Explore Menu</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <h2>About Us</h2>
+
+    <p>
+      We provide fresh coffee, snacks, desserts and fast delivery service
+      with premium customer experience.
+    </p>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="products">
+
+    <h2>Our Products</h2>
+
+    <!-- FILTER -->
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="coffee">Coffee</button>
+      <button class="filter-btn" data-filter="snack">Snacks</button>
+    </div>
+
+    <div class="product-container">
+
+      <div class="card" data-category="coffee">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop">
+
+        <h3>Cappuccino</h3>
+
+        <p>Premium Hot Coffee</p>
+
+        <span>₹180</span>
+
+        <button>Order</button>
+      </div>
+
+      <div class="card" data-category="coffee">
+        <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=1200&auto=format&fit=crop">
+
+        <h3>Cold Coffee</h3>
+
+        <p>Chocolate Flavour</p>
+
+        <span>₹220</span>
+
+        <button>Order</button>
+      </div>
+
+      <div class="card" data-category="snack">
+        <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?q=80&w=1200&auto=format&fit=crop">
+
+        <h3>Burger</h3>
+
+        <p>Cheese Burger</p>
+
+        <span>₹250</span>
+
+        <button>Order</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="offers" id="offers">
+
+    <h2>Special Offers</h2>
+
+    <div class="offer-box">
+      <div class="offer-card">
+        <h3>Buy 1 Get 1</h3>
+        <p>Only For Cold Coffee</p>
+      </div>
+
+      <div class="offer-card">
+        <h3>20% Discount</h3>
+        <p>Weekend Special Offer</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+
+    <h2>Contact Us</h2>
+
+    <div class="contact-box">
+
+      <div>
+        <p><strong>Address:</strong> Chennai, Tamil Nadu</p>
+
+        <p><strong>Phone:</strong> +91 9876543210</p>
+
+        <p><strong>Email:</strong> brewcafe@gmail.com</p>
+      </div>
+
+      <form id="contactForm">
+
+        <input type="text" placeholder="Your Name" required>
+
+        <input type="email" placeholder="Your Email" required>
+
+        <textarea placeholder="Message"></textarea>
+
+        <button type="submit">Send</button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Brew Cafe | All Rights Reserved</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
