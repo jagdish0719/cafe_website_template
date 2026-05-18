@@ -184,7 +184,7 @@ closeModal.addEventListener("click", () => {
 // BUY NOW
 
 const GOOGLE_FORM_LINK =
-"https://forms.gle/YOUR_GOOGLE_FORM_LINK";
+"https://docs.google.com/forms/d/e/1FAIpQLSdaoq5tbpd2vyQLFnLQh04pCuic83dKNoKOBZ61L2AYRYwc4w/viewform?usp=publish-editor";
 
 const buyNowBtn =
 document.getElementById("buyNowBtn");
