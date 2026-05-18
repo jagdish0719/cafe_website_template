@@ -127,7 +127,7 @@ searchInput.addEventListener("keyup", () => {
 
 });
 
-// MODAL
+// PRODUCT MODAL
 
 const modal =
 document.getElementById("productModal");
@@ -144,11 +144,21 @@ document.getElementById("modalDesc");
 const modalPrice =
 document.getElementById("modalPrice");
 
+const totalPrice =
+document.getElementById("totalPrice");
+
+const quantityInput =
+document.getElementById("quantity");
+
 const closeModal =
 document.querySelector(".close-modal");
 
 const viewButtons =
 document.querySelectorAll(".view-btn");
+
+let currentPrice = 0;
+
+// OPEN MODAL
 
 viewButtons.forEach(button => {
 
@@ -159,42 +169,113 @@ viewButtons.forEach(button => {
 
     modal.style.display = "flex";
 
+    document.body.style.overflow = "hidden";
+
+    // PRODUCT IMAGE
+
     modalImg.src =
     card.querySelector("img").src;
+
+    // PRODUCT NAME
 
     modalTitle.innerText =
     card.querySelector("h3").innerText;
 
+    // DESCRIPTION
+
     modalDesc.innerText =
     card.querySelector("p").innerText;
 
+    // PRICE
+
     modalPrice.innerText =
     card.querySelector("span").innerText;
+
+    // GET NUMBER PRICE
+
+    currentPrice =
+    parseInt(
+      card.querySelector("span")
+      .innerText.replace("₹","")
+    );
+
+    quantityInput.value = 1;
+
+    totalPrice.innerText =
+    currentPrice;
 
   });
 
 });
 
+// QUANTITY CALCULATION
+
+quantityInput.addEventListener("input", () => {
+
+  const quantity =
+  parseInt(quantityInput.value);
+
+  totalPrice.innerText =
+  currentPrice * quantity;
+
+});
+
+// CLOSE MODAL
+
 closeModal.addEventListener("click", () => {
 
   modal.style.display = "none";
 
+  document.body.style.overflow = "auto";
+
 });
 
-// BUY NOW
 
-const GOOGLE_FORM_LINK =
-"https://docs.google.com/forms/d/e/1FAIpQLSdaoq5tbpd2vyQLFnLQh04pCuic83dKNoKOBZ61L2AYRYwc4w/viewform?usp=publish-editor";
+// PLACE ORDER
 
-const buyNowBtn =
-document.getElementById("buyNowBtn");
+const orderForm =
+document.getElementById("orderForm");
 
-buyNowBtn.addEventListener("click", () => {
+orderForm.addEventListener("submit", function(e){
 
-  window.open(
-    GOOGLE_FORM_LINK,
-    "_blank"
-  );
+  e.preventDefault();
+
+  const customerName =
+  document.getElementById("customerName").value;
+
+  const customerPhone =
+  document.getElementById("customerPhone").value;
+
+  const customerAddress =
+  document.getElementById("customerAddress").value;
+
+  const paymentMethod =
+  document.getElementById("paymentMethod").value;
+
+  const quantity =
+  document.getElementById("quantity").value;
+
+  const productName =
+  modalTitle.innerText;
+
+  const total =
+  totalPrice.innerText;
+
+  const note =
+  "Order from Brew Haven Cafe";
+
+  const finalURL =
+  "https://docs.google.com/forms/d/e/1FAIpQLScCnjk1CwdHKFQlMdO1_h6_zfIXQrVno88e9MWg_79W6oKpsA/viewform?usp=pp_url" +
+  "&entry.561621210=" + encodeURIComponent(customerName) +
+  "&entry.1470745620=" + encodeURIComponent(customerPhone) +
+  "&entry.1635538381=" + encodeURIComponent(customerAddress) +
+  "&entry.1417710667=" + encodeURIComponent(productName) +
+  "&entry.91480752=" + encodeURIComponent(quantity) +
+  "&entry.138321599=" + encodeURIComponent(total) +
+  "&entry.1307424401=" + encodeURIComponent(paymentMethod) +
+  "&entry.596967868=" + encodeURIComponent(note);
+
+  window.open(finalURL, "_blank");
 
 });
 
