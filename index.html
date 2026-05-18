@@ -596,33 +596,166 @@
 
   <!-- PRODUCT MODAL -->
 
-  <div class="modal" id="productModal">
+  <!-- PRODUCT MODAL -->
 
-    <div class="modal-content">
+<div class="modal" id="productModal">
 
-      <span class="close-modal">
+  <div class="modal-content">
 
-        &times;
+    <span class="close-modal">
+      &times;
+    </span>
 
-      </span>
+    <img id="modalImg">
 
-      <img id="modalImg">
+    <h2 id="modalTitle"></h2>
 
-      <h2 id="modalTitle"></h2>
+    <p id="modalDesc"></p>
 
-      <p id="modalDesc"></p>
+    <h3 id="modalPrice"></h3>
 
-      <h3 id="modalPrice"></h3>
+    <!-- ORDER FORM -->
 
-      <button id="buyNowBtn">
+    <form id="orderForm">
 
-        Buy Now
+      <input
+      type="text"
+      id="customerName"
+      placeholder="Customer Name"
+      required>
+
+      <input
+      type="tel"
+      id="customerPhone"
+      placeholder="Phone Number"
+      required>
+
+      <textarea
+      id="customerAddress"
+      placeholder="Delivery Address"
+      required></textarea>
+
+      <!-- PAYMENT -->
+
+      <select id="paymentMethod">
+
+  <option>Cash on Delivery</option>
+
+  <option>UPI</option>
+
+  <option>Google Pay</option>
+
+  <option>Paytm</option>
+
+  <option>Credit Card</option>
+
+</select>
+
+      <!-- QUANTITY -->
+
+      <input
+      type="number"
+      id="quantity"
+      value="1"
+      min="1">
+
+      <!-- TOTAL -->
+
+      <h3>
+
+        Total:
+        ₹<span id="totalPrice">0</span>
+
+      </h3>
+
+      <button type="submit"
+      id="buyNowBtn">
+
+        Place Order
 
       </button>
 
-    </div>
+    </form>
 
   </div>
+<!-- PRODUCT MODAL -->
+
+<div class="modal" id="productModal">
+
+  <div class="modal-content">
+
+    <span class="close-modal">
+      &times;
+    </span>
+
+    <img
+    id="modalImg"
+    src=""
+    alt="Product Image">
+
+    <h2 id="modalTitle"></h2>
+
+    <p id="modalDesc"></p>
+
+    <h3 id="modalPrice"></h3>
+
+    <form id="orderForm">
+
+      <input
+      type="text"
+      id="customerName"
+      placeholder="Customer Name"
+      required>
+
+      <input
+      type="tel"
+      id="customerPhone"
+      placeholder="Phone Number"
+      required>
+
+      <textarea
+      id="customerAddress"
+      placeholder="Delivery Address"
+      required></textarea>
+
+      <select id="paymentMethod">
+
+        <option>Cash on Delivery</option>
+
+        <option>Google Pay</option>
+
+        <option>PhonePe</option>
+
+        <option>Paytm</option>
+
+      </select>
+
+      <input
+      type="number"
+      id="quantity"
+      value="1"
+      min="1">
+
+      <h3>
+
+        Total:
+        ₹<span id="totalPrice">0</span>
+
+      </h3>
+
+      <button
+      type="submit"
+      id="buyNowBtn">
+
+        Place Order
+
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
 
   <!-- JS -->
 
