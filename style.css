@@ -334,49 +334,160 @@ footer{
   font-size:24px;
 }
 
+/* =========================
+   MODAL
+========================= */
+
 .modal{
+
   position:fixed;
-  inset:0;
+
+  top:0;
+  left:0;
+
+  width:100%;
+  height:100%;
+
   background:rgba(0,0,0,0.8);
+
   display:none;
+
   justify-content:center;
   align-items:center;
-  z-index:2000;
+
+  z-index:9999;
+
+  padding:20px;
 }
 
+/* MODAL BOX */
+
 .modal-content{
+
   background:white;
+
   color:black;
-  width:90%;
-  max-width:500px;
-  padding:30px;
+
+  width:100%;
+  max-width:550px;
+
+  max-height:90vh;
+
+  overflow-y:auto;
+
   border-radius:20px;
+
+  padding:25px;
+
   position:relative;
 }
 
+/* SCROLLBAR */
+
+.modal-content::-webkit-scrollbar{
+  width:6px;
+}
+
+.modal-content::-webkit-scrollbar-thumb{
+  background:#c08457;
+  border-radius:10px;
+}
+
+/* IMAGE */
+
 .modal-content img{
-  height:250px;
+
+  width:100%;
+
+  height:220px;
+
   object-fit:cover;
-  border-radius:20px;
+
+  border-radius:15px;
+
   margin-bottom:20px;
 }
 
+/* CLOSE BUTTON */
+
 .close-modal{
+
   position:absolute;
-  right:20px;
+
   top:10px;
-  font-size:30px;
+  right:20px;
+
+  font-size:32px;
+
   cursor:pointer;
 }
 
-#buyNowBtn{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:10px;
-  background:#c08457;
+/* FORM */
+
+#orderForm{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:15px;
+
   margin-top:20px;
+}
+
+/* INPUTS */
+
+#orderForm input,
+#orderForm textarea,
+#orderForm select{
+
+  width:100%;
+
+  padding:14px;
+
+  border:none;
+
+  border-radius:10px;
+
+  background:#f3f4f6;
+}
+
+/* TEXTAREA */
+
+#orderForm textarea{
+
+  min-height:100px;
+
+  resize:none;
+}
+
+/* TOTAL */
+
+#totalPrice{
+  color:#c08457;
+}
+
+/* BUTTON */
+
+#buyNowBtn{
+
+  width:100%;
+
+  padding:15px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:#c08457;
+
+  color:black;
+
+  font-weight:600;
+
   cursor:pointer;
+
+  margin-top:10px;
 }
 
 #scrollTopBtn{
