@@ -310,32 +310,76 @@ scrollTopBtn.addEventListener("click", () => {
 
 });
 
-// CONTACT FORM VALIDATION
+// EMAILJS INITIALIZATION
+
+emailjs.init("2ThJgRQS9Edkb-VlG");
+
+
+// CONTACT FORM
 
 const contactForm =
 document.getElementById("contactForm");
 
-contactForm.addEventListener("submit", (e) => {
 
-  const name =
-  document.getElementById("name").value;
+contactForm.addEventListener("submit", function(e){
 
-  const email =
-  document.getElementById("email").value;
+  e.preventDefault();
 
-  const message =
-  document.getElementById("message").value;
+  const params = {
+
+    name:
+    document.getElementById("name").value,
+
+    email:
+    document.getElementById("email").value,
+
+    message:
+    document.getElementById("message").value
+
+  };
+
+
+  // EMPTY CHECK
 
   if(
-    name === "" ||
-    email === "" ||
-    message === ""
+    params.name === "" ||
+    params.email === "" ||
+    params.message === ""
   ){
-
-    e.preventDefault();
 
     alert("Please fill all fields");
 
+    return;
+
   }
+
+
+  // SEND EMAIL
+
+  emailjs.send(
+
+    "service_cnsr9vs",
+    "template_bor383f",
+    params
+
+  )
+
+  .then(function(response){
+
+    alert("Message Sent Successfully!");
+
+    console.log(response);
+
+    contactForm.reset();
+
+  })
+
+  .catch(function(error){
+
+    alert("Failed To Send Message");
+
+    console.log(error);
+
+  });
 
 });
