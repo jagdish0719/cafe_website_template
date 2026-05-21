@@ -417,6 +417,71 @@ emailjs.init("2ThJgRQS9Edkb-VlG");
 const contactForm =
 document.getElementById("contactForm");
 
+// CONTACT FORM VALIDATIONS
+
+const contactName =
+document.getElementById("name");
+
+const contactEmail =
+document.getElementById("email");
+
+const contactMessage =
+document.getElementById("message");
+
+
+// NAME ONLY LETTERS
+
+contactName.addEventListener("input", () => {
+
+  contactName.value =
+  contactName.value.replace(/[^A-Za-z\s]/g, "");
+
+  // MAX 40 LETTERS
+
+  if(contactName.value.length > 40){
+
+    contactName.value =
+    contactName.value.slice(0, 40);
+
+  }
+
+});
+
+
+// EMAIL ALLOW ALL VALID CHARACTERS
+
+contactEmail.addEventListener("input", () => {
+
+  // MAX 60 CHARACTERS
+
+  if(contactEmail.value.length > 60){
+
+    contactEmail.value =
+    contactEmail.value.slice(0, 60);
+
+  }
+
+});
+
+
+// MESSAGE ONLY LETTERS + SPACES
+
+contactMessage.addEventListener("input", () => {
+
+  contactMessage.value =
+  contactMessage.value.replace(/[^A-Za-z\s]/g, "");
+
+  // MAX 250 LETTERS
+
+  if(contactMessage.value.length > 250){
+
+    contactMessage.value =
+    contactMessage.value.slice(0, 250);
+
+  }
+
+});
+
 
 contactForm.addEventListener("submit", function(e){
 
