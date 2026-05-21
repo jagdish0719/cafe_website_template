@@ -7,6 +7,7 @@ window.addEventListener("load", () => {
 
 });
 
+
 // MOBILE MENU
 
 const menuBtn =
@@ -21,6 +22,7 @@ menuBtn.addEventListener("click", () => {
 
 });
 
+
 // STICKY NAVBAR
 
 const header =
@@ -33,6 +35,7 @@ window.addEventListener("scroll", () => {
     header.classList.add("sticky");
 
   }
+
   else{
 
     header.classList.remove("sticky");
@@ -40,6 +43,7 @@ window.addEventListener("scroll", () => {
   }
 
 });
+
 
 // DARK MODE
 
@@ -52,6 +56,7 @@ themeToggle.addEventListener("click", () => {
 
 });
 
+
 // PRODUCT FILTER
 
 const filterButtons =
@@ -59,6 +64,7 @@ document.querySelectorAll(".filter-btn");
 
 const productCards =
 document.querySelectorAll(".product-card");
+
 
 filterButtons.forEach(button => {
 
@@ -78,13 +84,16 @@ filterButtons.forEach(button => {
     productCards.forEach(card => {
 
       if(
+
         filter === "all" ||
         card.dataset.category === filter
+
       ){
 
         card.style.display = "block";
 
       }
+
       else{
 
         card.style.display = "none";
@@ -96,6 +105,7 @@ filterButtons.forEach(button => {
   });
 
 });
+
 
 // SEARCH
 
@@ -117,6 +127,7 @@ searchInput.addEventListener("keyup", () => {
       card.style.display = "block";
 
     }
+
     else{
 
       card.style.display = "none";
@@ -126,6 +137,7 @@ searchInput.addEventListener("keyup", () => {
   });
 
 });
+
 
 // PRODUCT MODAL
 
@@ -160,6 +172,32 @@ const orderForm =
 document.getElementById("orderForm");
 
 let currentPrice = 0;
+
+
+// PHONE NUMBER VALIDATION
+
+const customerPhoneInput =
+document.getElementById("customerPhone");
+
+customerPhoneInput.addEventListener("input", () => {
+
+  customerPhoneInput.value =
+  customerPhoneInput.value.replace(/\D/g, "");
+
+});
+
+
+// NAME VALIDATION
+
+const customerNameInput =
+document.getElementById("customerName");
+
+customerNameInput.addEventListener("input", () => {
+
+  customerNameInput.value =
+  customerNameInput.value.replace(/[^A-Za-z\s]/g, "");
+
+});
 
 
 // OPEN MODAL
@@ -247,7 +285,7 @@ closeModal.addEventListener("click", () => {
 });
 
 
-/// PLACE ORDER
+// PLACE ORDER
 
 orderForm.addEventListener("submit", function(e){
 
@@ -261,6 +299,20 @@ orderForm.addEventListener("submit", function(e){
 
   const customerAddress =
   document.getElementById("customerAddress").value;
+
+
+  // PINCODE VALIDATION
+
+  const pincodePattern = /\b\d{6}\b/;
+
+  if(!pincodePattern.test(customerAddress)){
+
+    alert("Please enter valid 6 digit pincode in address");
+
+    return;
+
+  }
+
 
   const paymentMethod =
   document.getElementById("paymentMethod").value;
@@ -333,6 +385,7 @@ window.addEventListener("scroll", () => {
     scrollTopBtn.style.display = "block";
 
   }
+
   else{
 
     scrollTopBtn.style.display = "none";
@@ -340,6 +393,7 @@ window.addEventListener("scroll", () => {
   }
 
 });
+
 
 scrollTopBtn.addEventListener("click", () => {
 
@@ -351,6 +405,7 @@ scrollTopBtn.addEventListener("click", () => {
   });
 
 });
+
 
 // EMAILJS INITIALIZATION
 
@@ -384,9 +439,11 @@ contactForm.addEventListener("submit", function(e){
   // EMPTY CHECK
 
   if(
+
     params.name === "" ||
     params.email === "" ||
     params.message === ""
+
   ){
 
     alert("Please fill all fields");
@@ -415,9 +472,11 @@ contactForm.addEventListener("submit", function(e){
 
     // REVIEW DATA
 
-    const reviewName = params.name;
+    const reviewName =
+    params.name;
 
-    const reviewMessage = params.message;
+    const reviewMessage =
+    params.message;
 
 
     // REVIEW OBJECT
@@ -430,11 +489,13 @@ contactForm.addEventListener("submit", function(e){
     };
 
 
-    // GET OLD REVIEWS
+    // GET SAVED REVIEWS
 
     const savedReviews =
     JSON.parse(
+
       localStorage.getItem("reviews")
+
     ) || [];
 
 
@@ -475,8 +536,6 @@ contactForm.addEventListener("submit", function(e){
 });
 
 
-
-
 // REVIEW GRID
 
 const reviewGrid =
@@ -493,30 +552,24 @@ function addReviewToUI(review){
   reviewCard.classList.add("review-card");
 
 
-  // MESSAGE
-
   const p =
   document.createElement("p");
 
-  p.innerText = review.message;
+  p.innerText =
+  review.message;
 
-
-  // NAME
 
   const h4 =
   document.createElement("h4");
 
-  h4.innerText = `- ${review.name}`;
+  h4.innerText =
+  `- ${review.name}`;
 
-
-  // APPEND
 
   reviewCard.appendChild(p);
 
   reviewCard.appendChild(h4);
 
-
-  // SHOW TOP
 
   reviewGrid.prepend(reviewCard);
 
@@ -529,7 +582,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const savedReviews =
   JSON.parse(
+
     localStorage.getItem("reviews")
+
   ) || [];
 
 
