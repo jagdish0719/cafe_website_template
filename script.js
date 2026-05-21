@@ -162,6 +162,23 @@ document.getElementById("totalPrice");
 const quantityInput =
 document.getElementById("quantity");
 
+// QUANTITY BUTTONS
+
+const plusBtn =
+document.getElementById("plusBtn");
+
+const minusBtn =
+document.getElementById("minusBtn");
+
+
+// SAVED ADDRESS
+
+const savedAddress =
+document.getElementById("savedAddress");
+
+const saveAddressBtn =
+document.getElementById("saveAddressBtn");
+
 const closeModal =
 document.querySelector(".close-modal");
 
@@ -172,6 +189,10 @@ const orderForm =
 document.getElementById("orderForm");
 
 let currentPrice = 0;
+
+let cartMode = false;
+
+let cartSummary = "";
 
 
 // PHONE NUMBER VALIDATION
@@ -225,6 +246,8 @@ viewButtons.forEach(button => {
     modalTitle.innerText =
     card.querySelector("h3").innerText;
 
+    cartMode = false;
+
 
     // DESCRIPTION
 
@@ -263,13 +286,42 @@ viewButtons.forEach(button => {
 
 // QUANTITY UPDATE
 
-quantityInput.addEventListener("input", () => {
+plusBtn.addEventListener("click", () => {
 
-  const quantity =
-  parseInt(quantityInput.value);
+  // CART MODE
+
+  if(cartMode){
+
+    return;
+
+  }
+
+  quantityInput.value++;
 
   totalPrice.innerText =
-  currentPrice * quantity;
+  currentPrice * quantityInput.value;
+
+});
+
+
+minusBtn.addEventListener("click", () => {
+
+  // CART MODE
+
+  if(cartMode){
+
+    return;
+
+  }
+
+  if(quantityInput.value > 1){
+
+    quantityInput.value--;
+
+    totalPrice.innerText =
+    currentPrice * quantityInput.value;
+
+  }
 
 });
 
@@ -284,6 +336,82 @@ closeModal.addEventListener("click", () => {
 
 });
 
+// LOAD SAVED ADDRESSES
+
+const savedAddresses =
+JSON.parse(
+
+  localStorage.getItem("savedAddresses")
+
+) || [];
+
+
+// SHOW ADDRESSES
+
+savedAddresses.forEach(address => {
+
+  const option =
+  document.createElement("option");
+
+  option.value = address;
+
+  option.textContent = address;
+
+  savedAddress.appendChild(option);
+
+});
+
+
+// SAVE ADDRESS
+
+saveAddressBtn.addEventListener("click", () => {
+
+  const address =
+  document.getElementById("customerAddress").value;
+
+  if(address === ""){
+
+    alert("Enter address first");
+
+    return;
+
+  }
+
+  if(!savedAddresses.includes(address)){
+
+    savedAddresses.push(address);
+
+    localStorage.setItem(
+
+      "savedAddresses",
+      JSON.stringify(savedAddresses)
+
+    );
+
+    const option =
+    document.createElement("option");
+
+    option.value = address;
+
+    option.textContent = address;
+
+    savedAddress.appendChild(option);
+
+    alert("Address Saved");
+
+  }
+
+});
+
+
+// SELECT SAVED ADDRESS
+
+savedAddress.addEventListener("change", () => {
+
+  document.getElementById("customerAddress").value =
+  savedAddress.value;
+
+});
 
 // PLACE ORDER
 
@@ -300,28 +428,98 @@ orderForm.addEventListener("submit", function(e){
   const customerAddress =
   document.getElementById("customerAddress").value;
 
+  // ADDRESS VALIDATION
 
-  // PINCODE VALIDATION
+const addressLower =
+customerAddress.toLowerCase();
 
-  const pincodePattern = /\b\d{6}\b/;
 
-  if(!pincodePattern.test(customerAddress)){
+// CHENNAI SERVICE CHECK
 
-    alert("Please enter valid 6 digit pincode in address");
+const allowedLocations = [
 
-    return;
+  "chennai",
+  "tambaram",
+  "pallavaram",
+  "chromepet",
+  "guindy",
+  "velachery",
+  "medavakkam",
+  "porur",
+  "anna nagar",
+  "adyar",
+  "thoraipakkam",
+  "sholinganallur",
+  "navalur",
+  "omr",
+  "ecr"
 
-  }
+];
+
+const serviceAvailable =
+allowedLocations.some(location =>
+  addressLower.includes(location)
+);
+
+
+// CHENNAI PINCODE CHECK
+
+const pincodePattern = /\b600\d{3}\b/;
+
+
+// LOCATION CHECK
+
+if(!serviceAvailable){
+
+  alert(
+    "Sorry! Currently delivery available only in Chennai locations."
+  );
+
+  return;
+
+}
+
+
+// PINCODE CHECK
+
+if(!pincodePattern.test(customerAddress)){
+
+  alert(
+    "Please enter valid Chennai pincode."
+  );
+
+  return;
+
+}
 
 
   const paymentMethod =
   document.getElementById("paymentMethod").value;
 
-  const quantity =
+
+  let productName;
+
+let quantity;
+
+
+if(cartMode){
+
+  productName = cartSummary;
+
+  quantity = "Multiple Items";
+
+}
+
+else{
+
+  productName =
+  modalTitle.innerText;
+
+  quantity =
   document.getElementById("quantity").value;
 
-  const productName =
-  modalTitle.innerText;
+}
+
 
   const total =
   totalPrice.innerText;
@@ -348,6 +546,16 @@ orderForm.addEventListener("submit", function(e){
 
   window.open(finalURL, "_blank");
 
+  // CLEAR CART AFTER ORDER
+
+cart = [];
+
+updateCart();
+
+cartSidebar.classList.remove("active");
+
+cartMode = false;
+
 
   // CLOSE MODAL
 
@@ -372,6 +580,353 @@ orderForm.addEventListener("submit", function(e){
 
 });
 
+// CART SYSTEM
+
+const cartSidebar =
+document.getElementById("cartSidebar");
+
+const cartToggle =
+document.getElementById("cartToggle");
+
+const closeCart =
+document.getElementById("closeCart");
+
+const cartItems =
+document.getElementById("cartItems");
+
+const cartTotal =
+document.getElementById("cartTotal");
+
+const cartButtons =
+document.querySelectorAll(".cart-btn");
+
+let cart = [];
+
+const checkoutCartBtn =
+document.getElementById("checkoutCartBtn");
+
+function removeItem(index){
+
+  cart.splice(index,1);
+
+  updateCart();
+
+}
+
+// CHECKOUT CART
+
+checkoutCartBtn.addEventListener("click", () => {
+
+  if(cart.length === 0){
+
+    alert("Cart is empty");
+
+    return;
+
+  }
+
+  cartMode = true;
+
+  plusBtn.style.display = "none";
+
+minusBtn.style.display = "none";
+
+quantityInput.style.display = "none";
+
+  modal.style.display = "flex";
+
+  plusBtn.style.display = "block";
+
+minusBtn.style.display = "block";
+
+quantityInput.style.display = "block";
+
+  document.body.style.overflow = "hidden";
+
+  cartSummary = "";
+
+  let total = 0;
+
+  cart.forEach(item => {
+
+    cartSummary +=
+    `${item.name} x${item.quantity}, `;
+
+    total +=
+    item.price * item.quantity;
+
+  });
+
+    "Cart Order";
+
+  modalTitle.innerText =
+"Cart Order";
+
+modalDesc.innerText =
+cartSummary;
+
+modalPrice.innerText =
+`₹${total}`;
+
+totalPrice.innerText =
+total;
+
+
+// CART IMAGE
+
+modalImg.src =
+"https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=1200&auto=format&fit=crop";
+
+
+// IMPORTANT
+
+currentPrice = total;
+
+
+// RESET QUANTITY
+
+quantityInput.value = 1;
+
+  // RESET FIELDS
+
+  document.getElementById("customerName").value = "";
+
+  document.getElementById("customerPhone").value = "";
+
+  document.getElementById("customerAddress").value = "";
+
+});
+
+// OPEN CART
+
+cartToggle.addEventListener("click", () => {
+
+  cartSidebar.classList.add("active");
+
+});
+
+
+// CLOSE CART
+
+closeCart.addEventListener("click", () => {
+
+  cartSidebar.classList.remove("active");
+
+});
+
+
+// ADD TO CART
+
+cartButtons.forEach(button => {
+
+  button.addEventListener("click", (e) => {
+
+    const card =
+    e.target.closest(".product-card");
+
+    const name =
+    card.querySelector("h3").innerText;
+
+    const price =
+    parseInt(
+
+      card.querySelector("span")
+      .innerText.replace("₹","")
+
+    );
+
+    const existingItem =
+    cart.find(item => item.name === name);
+
+
+    if(existingItem){
+
+      existingItem.quantity++;
+
+    }
+
+    else{
+
+      cart.push({
+
+        name:name,
+        price:price,
+        quantity:1
+
+      });
+
+    }
+
+    updateCart();
+
+  });
+
+});
+
+
+// UPDATE CART
+
+function updateCart(){
+
+  cartItems.innerHTML = "";
+
+  let total = 0;
+
+
+  cart.forEach((item,index) => {
+
+    total += item.price * item.quantity;
+
+
+    const div =
+    document.createElement("div");
+
+    div.classList.add("cart-item");
+
+
+    div.innerHTML = `
+
+      <h4>${item.name}</h4>
+
+      <p>
+        ₹${item.price}
+      </p>
+
+      <div class="cart-controls">
+
+        <button onclick="decreaseQty(${index})">
+          -
+        </button>
+
+        <span>${item.quantity}</span>
+
+        <button onclick="increaseQty(${index})">
+          +
+        </button>
+
+      </div>
+
+      <button
+      class="remove-btn"
+      onclick="removeItem(${index})">
+
+        Remove
+
+      </button>
+
+    `;
+
+    cartItems.appendChild(div);
+
+  });
+
+  cartTotal.innerText = total;
+
+  // CART COUNT
+
+const totalItems =
+cart.reduce((sum,item) => {
+
+  return sum + item.quantity;
+
+},0);
+
+document.getElementById("cartCount")
+.innerText = totalItems;
+
+}
+
+
+function updateCartModal(){
+
+  if(!cartMode) return;
+
+  // IF CART EMPTY
+
+  if(cart.length === 0){
+
+    modal.style.display = "none";
+
+    document.body.style.overflow = "auto";
+
+    cartMode = false;
+
+    return;
+
+  }
+
+  cartSummary = "";
+
+  let total = 0;
+
+  cart.forEach(item => {
+
+    cartSummary +=
+    `${item.name} x${item.quantity}, `;
+
+    total +=
+    item.price * item.quantity;
+
+  });
+
+  modalDesc.innerText =
+  cartSummary;
+
+  modalPrice.innerText =
+  `₹${total}`;
+
+  totalPrice.innerText =
+  total;
+
+  currentPrice = total;
+
+}
+
+// INCREASE
+
+function increaseQty(index){
+
+  cart[index].quantity++;
+
+  updateCart();
+
+  updateCartModal();
+
+}
+
+
+// DECREASE
+
+function decreaseQty(index){
+
+  if(cart[index].quantity > 1){
+
+    cart[index].quantity--;
+
+  }
+
+  else{
+
+    cart.splice(index,1);
+
+  }
+
+  updateCart();
+
+  updateCartModal();
+
+}
+
+
+// REMOVE ITEM
+
+function removeItem(index){
+
+  cart.splice(index,1);
+
+  updateCart();
+
+}
 
 // SCROLL TOP
 
