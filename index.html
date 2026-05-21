@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Brew Haveen Cafe</title>
+  <title>Brew Haven Cafe</title>
 
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
@@ -620,21 +620,28 @@
     <form id="orderForm">
 
       <input
-      type="text"
-      id="customerName"
-      placeholder="Customer Name"
-      required>
+type="text"
+id="customerName"
+placeholder="Customer Name"
+maxlength="50"
+pattern="[A-Za-z\s]+"
+title="Only letters allowed"
+required>
 
       <input
-      type="tel"
-      id="customerPhone"
-      placeholder="Phone Number"
-      required>
+type="tel"
+id="customerPhone"
+placeholder="Phone Number"
+maxlength="10"
+pattern="[0-9]{10}"
+title="Enter valid 10 digit mobile number"
+required>
 
       <textarea
-      id="customerAddress"
-      placeholder="Delivery Address"
-      required></textarea>
+id="customerAddress"
+placeholder="Delivery Address with Pincode"
+maxlength="200"
+required></textarea>
 
       <select id="paymentMethod">
 
@@ -645,6 +652,8 @@
         <option>PhonePe</option>
 
         <option>Paytm</option>
+        
+        <option>Credit Card</option>
 
       </select>
 
