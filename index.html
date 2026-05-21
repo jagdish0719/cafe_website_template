@@ -281,13 +281,19 @@
 
             <div class="product-buttons">
 
-              <button class="view-btn">
+  <button class="cart-btn">
 
-                View Details
+    Add To Cart
 
-              </button>
+  </button>
 
-            </div>
+  <button class="view-btn">
+
+    View Details
+
+  </button>
+
+</div>
 
           </div>
 
@@ -313,13 +319,19 @@
 
             <div class="product-buttons">
 
-              <button class="view-btn">
+  <button class="cart-btn">
 
-                View Details
+    Add To Cart
 
-              </button>
+  </button>
 
-            </div>
+  <button class="view-btn">
+
+    View Details
+
+  </button>
+
+</div>
 
           </div>
 
@@ -345,13 +357,19 @@
 
             <div class="product-buttons">
 
-              <button class="view-btn">
+  <button class="cart-btn">
 
-                View Details
+    Add To Cart
 
-              </button>
+  </button>
 
-            </div>
+  <button class="view-btn">
+
+    View Details
+
+  </button>
+
+</div>
 
           </div>
 
@@ -377,13 +395,19 @@
 
             <div class="product-buttons">
 
-              <button class="view-btn">
+  <button class="cart-btn">
 
-                View Details
+    Add To Cart
 
-              </button>
+  </button>
 
-            </div>
+  <button class="view-btn">
+
+    View Details
+
+  </button>
+
+</div>
 
           </div>
 
@@ -637,11 +661,38 @@ pattern="[0-9]{10}"
 title="Enter valid 10 digit mobile number"
 required>
 
-      <textarea
+
+
+<!-- SAVED ADDRESS -->
+
+<select id="savedAddress">
+
+  <option value="">
+    Select Saved Address
+  </option>
+
+</select>
+
+
+<!-- ADDRESS -->
+
+<textarea
 id="customerAddress"
 placeholder="Delivery Address with Pincode"
 maxlength="200"
 required></textarea>
+
+
+
+<!-- SAVE ADDRESS BUTTON -->
+
+<button
+type="button"
+id="saveAddressBtn">
+
+  Save Address
+
+</button>
 
       <select id="paymentMethod">
 
@@ -657,11 +708,32 @@ required></textarea>
 
       </select>
 
-      <input
-      type="number"
-      id="quantity"
-      value="1"
-      min="1">
+      <div class="quantity-box">
+
+  <button
+  type="button"
+  id="minusBtn">
+
+    -
+
+  </button>
+
+  <input
+  type="number"
+  id="quantity"
+  value="1"
+  min="1"
+  readonly>
+
+  <button
+  type="button"
+  id="plusBtn">
+
+    +
+
+  </button>
+
+</div>
 
       <h3>
 
@@ -689,6 +761,45 @@ required></textarea>
   <!-- JS -->
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- CART -->
+
+<div class="cart-sidebar" id="cartSidebar">
+
+  <div class="cart-header">
+
+    <h2>My Cart</h2>
+
+    <span id="closeCart">&times;</span>
+
+  </div>
+
+  <div id="cartItems"></div>
+
+  <h3>
+
+    Total: ₹<span id="cartTotal">0</span>
+
+  </h3>
+
+  <button id="checkoutCartBtn">
+
+  Checkout
+
+</button>
+
+</div>
+
+
+<button id="cartToggle">
+
+  🛒
+
+  <span id="cartCount">
+    0
+  </span>
+
+</button>
 
 <script src="script.js"></script>
 
