@@ -156,7 +156,11 @@ document.querySelector(".close-modal");
 const viewButtons =
 document.querySelectorAll(".view-btn");
 
+const orderForm =
+document.getElementById("orderForm");
+
 let currentPrice = 0;
+
 
 // OPEN MODAL
 
@@ -171,33 +175,43 @@ viewButtons.forEach(button => {
 
     document.body.style.overflow = "hidden";
 
-    // PRODUCT IMAGE
+
+    // IMAGE
 
     modalImg.src =
     card.querySelector("img").src;
 
-    // PRODUCT NAME
+
+    // TITLE
 
     modalTitle.innerText =
     card.querySelector("h3").innerText;
+
 
     // DESCRIPTION
 
     modalDesc.innerText =
     card.querySelector("p").innerText;
 
+
     // PRICE
 
     modalPrice.innerText =
     card.querySelector("span").innerText;
 
-    // GET NUMBER PRICE
+
+    // NUMBER PRICE
 
     currentPrice =
     parseInt(
+
       card.querySelector("span")
       .innerText.replace("₹","")
+
     );
+
+
+    // RESET QUANTITY
 
     quantityInput.value = 1;
 
@@ -208,7 +222,8 @@ viewButtons.forEach(button => {
 
 });
 
-// QUANTITY CALCULATION
+
+// QUANTITY UPDATE
 
 quantityInput.addEventListener("input", () => {
 
@@ -219,6 +234,7 @@ quantityInput.addEventListener("input", () => {
   currentPrice * quantity;
 
 });
+
 
 // CLOSE MODAL
 
@@ -231,10 +247,7 @@ closeModal.addEventListener("click", () => {
 });
 
 
-// PLACE ORDER
-
-const orderForm =
-document.getElementById("orderForm");
+/// PLACE ORDER
 
 orderForm.addEventListener("submit", function(e){
 
@@ -264,6 +277,9 @@ orderForm.addEventListener("submit", function(e){
   const note =
   "Order from Brew Haven Cafe";
 
+
+  // GOOGLE FORM URL
+
   const finalURL =
   "https://docs.google.com/forms/d/e/1FAIpQLScCnjk1CwdHKFQlMdO1_h6_zfIXQrVno88e9MWg_79W6oKpsA/viewform?usp=pp_url" +
   "&entry.561621210=" + encodeURIComponent(customerName) +
@@ -275,9 +291,35 @@ orderForm.addEventListener("submit", function(e){
   "&entry.1307424401=" + encodeURIComponent(paymentMethod) +
   "&entry.596967868=" + encodeURIComponent(note);
 
+
+  // OPEN GOOGLE FORM
+
   window.open(finalURL, "_blank");
 
+
+  // CLOSE MODAL
+
+  modal.style.display = "none";
+
+  document.body.style.overflow = "auto";
+
+
+  // RESET FORM
+
+  orderForm.reset();
+
+
+  // GO TO PRODUCTS SECTION
+
+  document.getElementById("products")
+  .scrollIntoView({
+
+    behavior:"smooth"
+
+  });
+
 });
+
 
 // SCROLL TOP
 
@@ -370,6 +412,54 @@ contactForm.addEventListener("submit", function(e){
 
     console.log(response);
 
+
+    // REVIEW DATA
+
+    const reviewName = params.name;
+
+    const reviewMessage = params.message;
+
+
+    // REVIEW OBJECT
+
+    const newReview = {
+
+      name: reviewName,
+      message: reviewMessage
+
+    };
+
+
+    // GET OLD REVIEWS
+
+    const savedReviews =
+    JSON.parse(
+      localStorage.getItem("reviews")
+    ) || [];
+
+
+    // ADD NEW REVIEW
+
+    savedReviews.unshift(newReview);
+
+
+    // SAVE AGAIN
+
+    localStorage.setItem(
+
+      "reviews",
+      JSON.stringify(savedReviews)
+
+    );
+
+
+    // SHOW REVIEW
+
+    addReviewToUI(newReview);
+
+
+    // RESET FORM
+
     contactForm.reset();
 
   })
@@ -379,6 +469,73 @@ contactForm.addEventListener("submit", function(e){
     alert("Failed To Send Message");
 
     console.log(error);
+
+  });
+
+});
+
+
+
+
+// REVIEW GRID
+
+const reviewGrid =
+document.getElementById("reviewGrid");
+
+
+// ADD REVIEW FUNCTION
+
+function addReviewToUI(review){
+
+  const reviewCard =
+  document.createElement("div");
+
+  reviewCard.classList.add("review-card");
+
+
+  // MESSAGE
+
+  const p =
+  document.createElement("p");
+
+  p.innerText = review.message;
+
+
+  // NAME
+
+  const h4 =
+  document.createElement("h4");
+
+  h4.innerText = `- ${review.name}`;
+
+
+  // APPEND
+
+  reviewCard.appendChild(p);
+
+  reviewCard.appendChild(h4);
+
+
+  // SHOW TOP
+
+  reviewGrid.prepend(reviewCard);
+
+}
+
+
+// LOAD SAVED REVIEWS
+
+window.addEventListener("DOMContentLoaded", () => {
+
+  const savedReviews =
+  JSON.parse(
+    localStorage.getItem("reviews")
+  ) || [];
+
+
+  savedReviews.reverse().forEach(review => {
+
+    addReviewToUI(review);
 
   });
 
