@@ -435,7 +435,7 @@
 
       </div>
 
-      <div class="review-grid">
+      <div class="review-grid" id="reviewGrid">
 
         <div class="review-card">
 
@@ -596,90 +596,6 @@
 
   <!-- PRODUCT MODAL -->
 
-  <!-- PRODUCT MODAL -->
-
-<div class="modal" id="productModal">
-
-  <div class="modal-content">
-
-    <span class="close-modal">
-      &times;
-    </span>
-
-    <img id="modalImg">
-
-    <h2 id="modalTitle"></h2>
-
-    <p id="modalDesc"></p>
-
-    <h3 id="modalPrice"></h3>
-
-    <!-- ORDER FORM -->
-
-    <form id="orderForm">
-
-      <input
-      type="text"
-      id="customerName"
-      placeholder="Customer Name"
-      required>
-
-      <input
-      type="tel"
-      id="customerPhone"
-      placeholder="Phone Number"
-      required>
-
-      <textarea
-      id="customerAddress"
-      placeholder="Delivery Address"
-      required></textarea>
-
-      <!-- PAYMENT -->
-
-      <select id="paymentMethod">
-
-  <option>Cash on Delivery</option>
-
-  <option>UPI</option>
-
-  <option>Google Pay</option>
-
-  <option>Paytm</option>
-
-  <option>Credit Card</option>
-
-</select>
-
-      <!-- QUANTITY -->
-
-      <input
-      type="number"
-      id="quantity"
-      value="1"
-      min="1">
-
-      <!-- TOTAL -->
-
-      <h3>
-
-        Total:
-        ₹<span id="totalPrice">0</span>
-
-      </h3>
-
-      <button type="submit"
-      id="buyNowBtn">
-
-        Place Order
-
-      </button>
-
-    </form>
-
-  </div>
-<!-- PRODUCT MODAL -->
-
 <div class="modal" id="productModal">
 
   <div class="modal-content">
@@ -698,6 +614,8 @@
     <p id="modalDesc"></p>
 
     <h3 id="modalPrice"></h3>
+
+    <!-- ORDER FORM -->
 
     <form id="orderForm">
 
@@ -752,6 +670,8 @@
       </button>
 
     </form>
+
+    
 
   </div>
 
