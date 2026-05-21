@@ -425,6 +425,9 @@ orderForm.addEventListener("submit", function(e){
   const customerPhone =
   document.getElementById("customerPhone").value;
 
+  const customerEmail =
+document.getElementById("customerEmail").value;
+
   const customerAddress =
   document.getElementById("customerAddress").value;
 
@@ -544,7 +547,94 @@ else{
 
   // OPEN GOOGLE FORM
 
+ const proceed = confirm(
+
+  "Please complete your order submission in Google Form."
+
+);
+
+if(proceed){
+
   window.open(finalURL, "_blank");
+
+}
+
+ if(proceed){
+
+  // OPEN GOOGLE FORM
+
+  window.open(finalURL, "_blank");
+
+
+  // SEND EMAIL
+
+  emailjs.send(
+
+    "service_cnsr9vs",
+
+    "template_sydk313",
+
+    {
+
+      name: customerName,
+
+      email: customerEmail,
+
+      message:
+
+`Your Brew Haven Cafe order has been received.
+
+Order:
+${productName}
+
+Total:
+₹${total}
+
+Estimated Delivery:
+30-45 Minutes`
+
+    }
+
+  );
+
+
+  // WHATSAPP MESSAGE
+
+  const whatsappMessage =
+
+`Hello ${customerName},
+
+✅ Your Brew Haven Cafe order request has been received.
+
+Order Details:
+${productName}
+
+Total Amount:
+₹${total}
+
+Estimated Delivery:
+30-45 Minutes
+
+Thank you for choosing Brew Haven Cafe ☕`;
+
+
+  // WHATSAPP URL
+
+  const whatsappURL =
+
+  `https://wa.me/91${customerPhone}?text=${encodeURIComponent(whatsappMessage)}`;
+
+
+  // OPEN WHATSAPP AFTER 2 SECONDS
+
+  setTimeout(() => {
+
+    window.location.href =
+    whatsappURL;
+
+  }, 2000);
+
+}
 
   // CLEAR CART AFTER ORDER
 
@@ -1126,12 +1216,22 @@ contactForm.addEventListener("submit", function(e){
 
     // SAVE AGAIN
 
-    localStorage.setItem(
+    try{
 
-      "reviews",
-      JSON.stringify(savedReviews)
+  localStorage.setItem(
 
-    );
+    "reviews",
+    JSON.stringify(savedReviews)
+
+  );
+
+}
+
+catch(error){
+
+  console.log("LocalStorage not supported");
+
+}
 
 
     // SHOW REVIEW
@@ -1200,12 +1300,24 @@ function addReviewToUI(review){
 
 window.addEventListener("DOMContentLoaded", () => {
 
-  const savedReviews =
+let savedReviews = [];
+
+try{
+
+  savedReviews =
   JSON.parse(
 
     localStorage.getItem("reviews")
 
   ) || [];
+
+}
+
+catch(error){
+
+  savedReviews = [];
+
+}
 
 
   savedReviews.reverse().forEach(review => {
