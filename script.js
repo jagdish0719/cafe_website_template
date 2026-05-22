@@ -598,42 +598,6 @@ Estimated Delivery:
   );
 
 
-  // WHATSAPP MESSAGE
-
-  const whatsappMessage =
-
-`Hello ${customerName},
-
-✅ Your Brew Haven Cafe order request has been received.
-
-Order Details:
-${productName}
-
-Total Amount:
-₹${total}
-
-Estimated Delivery:
-30-45 Minutes
-
-Thank you for choosing Brew Haven Cafe ☕`;
-
-
-  // WHATSAPP URL
-
-  const whatsappURL =
-
-  `https://wa.me/91${customerPhone}?text=${encodeURIComponent(whatsappMessage)}`;
-
-
-  // OPEN WHATSAPP AFTER 2 SECONDS
-
-  setTimeout(() => {
-
-    window.location.href =
-    whatsappURL;
-
-  }, 2000);
-
 }
 
   // CLEAR CART AFTER ORDER
